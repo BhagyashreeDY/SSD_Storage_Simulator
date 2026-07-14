@@ -103,26 +103,11 @@ SSD_Storage_Simulator
 
 ## System Architecture
 
-```
-                  StorageDevice (Abstract)
+## System Architecture
 
-                         ▲
-              ┌──────────┴──────────┐
-              │                     │
-             SSD                   HDD
+![System Architecture](docs/system_architecture.png)
 
-              │
-      ┌───────┴────────┐
-      │                │
-   Controller      Statistics
-      │
-      │
-    Blocks
-      │
-     Pages
-```
-
-The `Controller` owns a `StorageDevice*` pointer and performs all storage operations through the base class interface. Depending on the active device (SSD or HDD), runtime polymorphism invokes the appropriate implementation.
+The simulator follows a layered object-oriented architecture centered around the abstract `StorageDevice` interface. The `Controller` communicates with storage devices through runtime polymorphism, while the SSD implementation manages Flash Translation Layer (FTL), block/page allocation, wear leveling, and garbage collection.
 
 ---
 
@@ -135,7 +120,11 @@ The `Controller` owns a `StorageDevice*` pointer and performs all storage operat
 - Modular Class Design
 
 ---
+## UML Class Diagram
 
+![UML Class Diagram](docs/UML_dig.png)
+
+The class diagram illustrates the relationships between the controller, storage devices, blocks, pages, cache, statistics module, and test suite using inheritance, composition, and associations.
 ## Storage Algorithms Implemented
 
 - Flash Translation Layer (FTL)
@@ -158,7 +147,11 @@ The `Controller` owns a `StorageDevice*` pointer and performs all storage operat
 | `queue<int>` | Pending write requests |
 | `priority_queue` | Wear Leveling (Least Worn Block Selection) |
 | `sort()` | Statistics display based on wear count |
+## Garbage Collection Workflow
 
+![Garbage Collection](docs/garbage_collection.png)
+
+Illustrates the garbage collection process performed when insufficient free pages are available. Valid pages are migrated before the block is erased and reused.
 ---
 
 ## Design Decisions
@@ -185,7 +178,11 @@ The process:
 2. Erase the block.
 3. Increase wear count.
 4. Reuse the block for future writes.
+## Flash Translation Layer (FTL)
 
+![FTL Mapping](docs/FTL.png)
+
+The Flash Translation Layer maintains a Logical-to-Physical (L2P) mapping table that translates logical block addresses into physical NAND locations.
 ---
 
 ### Wear Leveling
@@ -258,35 +255,43 @@ All tests report PASS/FAIL results.
 
 ### Main Menu
 
-```
-(Add Screenshot Here)
-```
-
-### SSD Block View
-
-```
-(Add Screenshot Here)
-```
-
-### Statistics
-
-```
-(Add Screenshot Here)
-```
-
-### Garbage Collection
-
-```
-(Add Screenshot Here)
-```
-
-### Test Suite
-
-```
-(Add Screenshot Here)
-```
+![Main Menu](screenshots/menu.png)
 
 ---
+
+### SSD Creation
+
+![Create SSD](screenshots/create.png)
+
+---
+
+### Write Operation
+
+![Write](screenshots/write.png)
+
+---
+
+### Read Operation
+
+![Read](screenshots/read.png)
+
+---
+
+### Storage Statistics
+
+![Statistics](screenshots/statistics.png)
+
+---
+
+### Save / Load State
+
+![Load State](screenshots/load_state.png)
+
+---
+
+### Automated Boundary Test Suite
+
+![Test Suite](screenshots/run_test.png)
 
 ## Future Improvements
 
