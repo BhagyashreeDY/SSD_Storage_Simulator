@@ -1,0 +1,16 @@
+# Compiled binaries
+*.exe
+*.o
+*.obj
+
+# Runtime save files
+data/*.bin
+file
+*.bin
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
