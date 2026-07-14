@@ -105,7 +105,7 @@ SSD_Storage_Simulator
 
 ## System Architecture
 
-![System Architecture](docs/system architecture.png)
+![System Architecture](docs/system_architecture.png)
 
 The simulator follows a layered object-oriented architecture centered around the abstract `StorageDevice` interface. The `Controller` communicates with storage devices through runtime polymorphism, while the SSD implementation manages Flash Translation Layer (FTL), block/page allocation, wear leveling, and garbage collection.
 
